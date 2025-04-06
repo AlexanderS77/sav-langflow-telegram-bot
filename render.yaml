@@ -1,0 +1,13 @@
+
+services:
+  - type: web
+    name: telegram-langflow-bot
+    env: python
+    buildCommand: ""
+    startCommand: python telegram_bot.py
+    plan: free
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: 7944367013:AAEyLIkyNofPeGu_nl84CfYjvhggOMsrUXU
+      - key: LANGFLOW_API_URL
+        value: https://api.langflow.astra.datastax.com/lf/d9b3df20-1aed-4a12-b9da-ad69af16e10b/api/v1/run/332f43f7-86b9-4e74-864e-8def4c192b37?stream=false
