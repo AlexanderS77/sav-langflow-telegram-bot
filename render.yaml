@@ -1,7 +1,7 @@
 
 services:
   - type: web
-    name: telegram-langflow-bot
+    name: telegram-langflow-webhook
     env: python
     buildCommand: ""
     startCommand: python telegram_bot.py
@@ -11,3 +11,9 @@ services:
         value: 7944367013:AAEyLIkyNofPeGu_nl84CfYjvhggOMsrUXU
       - key: LANGFLOW_API_URL
         value: https://api.langflow.astra.datastax.com/lf/d9b3df20-1aed-4a12-b9da-ad69af16e10b/api/v1/run/332f43f7-86b9-4e74-864e-8def4c192b37?stream=false
+      - key: WEBHOOK_URL
+        value: https://sav-langflow-telegram-bot.onrender.com
+    envVarsByRender: true
+    autoDeploy: true
+    healthCheckPath: /
+    httpPort: 10000
