@@ -11,7 +11,7 @@ WEBHOOK_URL = os.environ["WEBHOOK_URL"]
 
 bot = Bot(token=BOT_TOKEN)
 app = Flask(__name__)
-dispatcher = Dispatcher(bot, None, workers=0, use_context=True)
+dispatcher = Dispatcher(bot, None, workers=1, use_context=True)
 
 def handle_message(update: Update, context: CallbackContext):
     user_text = update.message.text
