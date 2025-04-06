@@ -1,0 +1,15 @@
+yaml
+
+name: Keep Bot Alive
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # каждые 5 минут
+  workflow_dispatch:
+
+jobs:
+  ping-render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep Render Bot Alive
+        run: curl -s https://sav-langflow-telegram-bot.onrender.com/ > /dev/null
