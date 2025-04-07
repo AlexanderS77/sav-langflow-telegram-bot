@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>POST в Google Apps Script</title>
+</head>
+<body>
+  <h2>Отправка POST-запроса в Google Apps Script</h2>
+  <form id="postForm">
+    <p>timestamp: <input name="timestamp" id="timestamp" /></p>
+    <p>user_id: <input name="user_id" id="user_id" /></p>
+    <p>username: <input name="username" id="username" /></p>
+    <p>message: <input name="message" id="message" /></p>
+    <button type="submit">Отправить</button>
+    <button type="button" onclick="fillRandom()">Случайные данные</button>
+  </form>
+  <p><b>Ответ:</b> <span id="response"></span></p>
+
+  <script>
+    const form = document.getElementById('postForm');
+    const response = document.getElementById('response');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        timestamp: document.getElementById('timestamp').value,
+        user_id: document.getElementById('user_id').value,
+        username: document.getElementById('username').value,
+        message: document.getElementById('message').value,
+      };
+      try {
+        const res = await fetch('https://script.google.com/macros/s/AKfycbxXu8YMDaJukUo6gtwEkbWtDcntKQcSFRRtKFc8hr-IImiUR3S1n0rv8PfC6R4pufPYDg/exec', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const text = await res.text();
+        response.innerText = text;
+      } catch (error) {
+        response.innerText = 'Ошибка: ' + error.message;
+      }
+    });
+
+    function fillRandom() {
+      const now = new Date().toISOString();
+      document.getElementById('timestamp').value = now;
+      document.getElementById('user_id').value = Math.floor(Math.random() * 100000000);
+      document.getElementById('username').value = 'user_' + Math.floor(Math.random() * 1000);
+      document.getElementById('message').value = 'Сообщение ' + Math.random().toString(36).substring(7);
+    }
+  </script>
+</body>
+</html>
